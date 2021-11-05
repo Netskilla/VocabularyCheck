@@ -174,6 +174,7 @@ def changeTL(Lan1, Lan2, chooseLan):
             print(("This word is not in the list\n").center(cols))
     
         moree = input((("Would you like to change more? 'y' or 'n':\n")).center(cols))
+    
         if moree != "y":
             break
 
