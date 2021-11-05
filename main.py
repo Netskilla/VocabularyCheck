@@ -221,7 +221,6 @@ while True:
     elif choice == "4":
         if len(tempmist[1:]) != 0:
             fixmistakes(Lan1, Lan2, tempmist[1:])
-
         else:
             print((colored("No mistakes yet!", "blue")).center(cols))
 
