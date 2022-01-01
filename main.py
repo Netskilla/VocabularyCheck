@@ -9,6 +9,9 @@ def replace_line(file_name, line_num, text):
     out.writelines(lines)
     out.close()
 
+def definition(i):
+    print((Defl[i]).center(cols))
+
 # In order (1)
 
 def inorder(Lan1, Lan2):
@@ -16,8 +19,15 @@ def inorder(Lan1, Lan2):
 
     for i in range(len(Lan1)):
         print((Lan1[i]).center(cols))
+        print(("'d' for definition").center(cols))
         tl = input(("Your translation: \n").center(cols))
-        certainty = input(("are you sure? (press ENTER if certain, if not, write another translation)\n").center(cols))
+        if tl.strip() == "d":
+            definition(i)
+            tl = input(("Your translation: \n").center(cols))
+            certainty = input(("are you sure? (press ENTER if certain, if not, write another translation)\n").center(cols))
+        else:
+            certainty = input(("are you sure? (press ENTER if certain, if not, write another translation)\n").center(cols))
+
 
         if certainty.strip() != "":
             tl = certainty
@@ -51,9 +61,14 @@ def randomized(Lan1, Lan2):
     while True:
         i = r(0, len(Lan1) - 1)
         print((Lan1[i]).center(cols))
-
+        print(("'d' for definition").center(cols))
         tl = input(("Your translation: \n").center(cols))
-        certainty = input(("are you sure? (press ENTER if certain, if not, write another translation)\n").center(cols))
+        if tl.strip() == "d":
+            definition(i)
+            tl = input(("Your translation: \n").center(cols))
+            certainty = input(("are you sure? (press ENTER if certain, if not, write another translation)\n").center(cols))
+        else:
+            certainty = input(("are you sure? (press ENTER if certain, if not, write another translation)\n").center(cols))
 
         if certainty.strip() != "":
             tl = certainty
@@ -87,9 +102,14 @@ def notrep(Lan1, Lan2):
     while len(newLan1) != 0:
         i = r(0, len(newLan1) - 1)
         print((newLan1[i]).center(cols))
-            
+        print(("'d' for definition").center(cols))
         tl = input(("Your translation: \n").center(cols))
-        certainty = input(("are you sure? (press ENTER if certain, if not, write another translation)\n").center(cols))
+        if tl.strip() == "d":
+            definition(i)
+            tl = input(("Your translation: \n").center(cols))
+            certainty = input(("are you sure? (press ENTER if certain, if not, write another translation)\n").center(cols))
+        else:
+            certainty = input(("are you sure? (press ENTER if certain, if not, write another translation)\n").center(cols))
 
         if certainty.strip() != "":
             tl = certainty
@@ -126,8 +146,14 @@ def notrep(Lan1, Lan2):
 def fixmistakes(Lan1, Lan2, mistakes):
     for i in mistakes:
         print((Lan1[int(i)]).center(cols))
+        print(("'d' for definition").center(cols))
         tl = input(("Your translation: \n").center(cols))
-        certainty = input(("are you sure? (press ENTER if certain, if not, write another translation)\n").center(cols))
+        if tl.strip() == "d":
+            definition(i)
+            tl = input(("Your translation: \n").center(cols))
+            certainty = input(("are you sure? (press ENTER if certain, if not, write another translation)\n").center(cols))
+        else:
+            certainty = input(("are you sure? (press ENTER if certain, if not, write another translation)\n").center(cols))
 
         if certainty.strip() != "":
             tl = certainty
@@ -157,38 +183,39 @@ def changeTL(Lan1, Lan2, chooseLan):
             newword = input(("New translation:\n").center(cols))
 
             if chooseLan == "2":
-                replace_line('words/language_1.txt', wordindex, newword.lower().strip())
+                replace_line("FOLDER NAME/words/language_1.txt", wordindex, newword.lower().strip())
             else:
-                replace_line('words/language_2.txt', wordindex, newword.lower().strip())
+                replace_line("FOLDER NAME/words/language_2.txt", wordindex, newword.lower().strip())
 
         elif wordtochange.lower().strip() in Lan2:
             wordindex = Lan2.index(wordtochange.lower().strip())
             newword = input(("New translation:\n").center(cols))
 
             if chooseLan == "2":
-                replace_line('words/language_1.txt', wordindex, newword.lower().strip())
+                replace_line("FOLDER NAME/words/language_1.txt", wordindex, newword.lower().strip())
             else:
-                replace_line('words/language_2.txt', wordindex, newword.lower().strip())
+                replace_line("FOLDER NAME/words/language_2.txt", wordindex, newword.lower().strip())
 
         else:
             print(("This word is not in the list\n").center(cols))
     
         moree = input((("Would you like to change more? 'y' or 'n':\n")).center(cols))
-    
         if moree != "y":
             break
 
 cols, rows = shutil.get_terminal_size()
 
-InLan1 = open("words/language_1.txt", "r", encoding="UTF-8")
-InLan2 = open("words/language_2.txt", "r", encoding="UTF-8")
-Mistakes = open("words/mistakes.txt", "w", encoding="UTF-8")
+InLan1 = open("FOLDER NAME/words/language_1.txt", "r", encoding="UTF-8")
+InLan2 = open("FOLDER NAME/words/language_2.txt", "r", encoding="UTF-8")
+Def = open("FOLDER NAME/words/definition.txt", "r", encoding="UTF-8")
+Mistakes = open("FOLDER NAME/words/mistakes.txt", "w", encoding="UTF-8")
 
-readmistakes = open("words/mistakes.txt", "r", encoding="UTF-8")
+readmistakes = open("FOLDER NAME/words/mistakes.txt", "r", encoding="UTF-8")
 tempmist = readmistakes.read().split("\n")
 
 Lan1 = InLan1.read().split("\n")
 Lan2 = InLan2.read().split("\n")
+Defl = Def.read().split("\n")
 
 while True:
     print(("From language 1 to language 2 -- enter '1'").center(cols))
@@ -221,6 +248,7 @@ while True:
     elif choice == "4":
         if len(tempmist[1:]) != 0:
             fixmistakes(Lan1, Lan2, tempmist[1:])
+
         else:
             print((colored("No mistakes yet!", "blue")).center(cols))
 
